@@ -61,7 +61,7 @@
 #include <linux/module.h>
 #include <linux/init.h>
 #include <drm/drm_mipi_dsi.h>
-
+#include "exposure_adjustment.h"
 
 
 extern int msm_drm_notifier_call_chain(unsigned long val, void *v);
@@ -2830,8 +2830,11 @@ int oneplus_dim_status = 0;
 
 	if(display->panel->aod_status==0 && (dim_status == 2)){
 		pr_err("fp set it in normal status\n");
-		if (dim_status == oneplus_dim_status)
+		if (dim_status == oneplus_dim_status){
+                         if (dim_status == 0)
+			         ea_panel_udfp_workaround();
 			return count;
+                }
 		oneplus_dim_status = dim_status;
 		SDE_ATRACE_END("oneplus_display_notify_dim");
 		return count;

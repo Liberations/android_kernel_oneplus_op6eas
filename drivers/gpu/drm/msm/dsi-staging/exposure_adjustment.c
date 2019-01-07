@@ -103,6 +103,7 @@ static int ea_panel_send_pcc(u32 bl_lvl)
 		ea_coeff = EXPOSURE_ADJUSTMENT_MAX;
 
 	pr_info("ea_coeff = %X\n", ea_coeff);
+        pr_info("bl_lvl = %X\n", bl_lvl);
 	r_data = ea_coeff;
 	g_data = ea_coeff;
 	b_data = ea_coeff;

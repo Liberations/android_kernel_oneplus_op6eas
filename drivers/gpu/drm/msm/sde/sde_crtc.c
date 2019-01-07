@@ -2830,11 +2830,8 @@ int oneplus_dim_status = 0;
 
 	if(display->panel->aod_status==0 && (dim_status == 2)){
 		pr_err("fp set it in normal status\n");
-		if (dim_status == oneplus_dim_status){
-                         if (dim_status == 0)
-			         ea_panel_udfp_workaround();
+		if (dim_status == oneplus_dim_status)
 			return count;
-                }
 		oneplus_dim_status = dim_status;
 		SDE_ATRACE_END("oneplus_display_notify_dim");
 		return count;
@@ -2844,8 +2841,11 @@ int oneplus_dim_status = 0;
 		oneplus_onscreenfp_status = 0;
     }
 
-    if (dim_status == oneplus_dim_status)
+    if (dim_status == oneplus_dim_status) {
+		if (dim_status == 0)
+			ea_panel_udfp_workaround();
 		return count;
+    }
 	oneplus_dim_status = dim_status;
 	drm_modeset_lock_all(drm_dev);
 
